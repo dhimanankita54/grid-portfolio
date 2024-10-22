@@ -1,0 +1,118 @@
+.react-grid-layout {
+  position: relative;
+  transition: height 200ms ease;
+  width: 80%;
+}
+
+.react-grid-item.cssTransforms {
+  transition-property: transform, height, width;
+  transition-duration: 500ms;
+}
+
+.react-grid-item.react-grid-placeholder {
+  background-color: rgb(48,54,61);
+  border-radius: 24px;
+}
+
+.reactGridItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 200ms ease;
+  transition-property: left, top;
+  font-family: Arial, Helvetica, sans-serif;
+  background: rgb(13, 17, 23);
+  box-shadow: rgb(48, 54, 61) 0px 0px 0px 2px inset;
+  text-align: center;
+}
+.deleteButton {
+  position: absolute;
+  top: 0%;
+  left: 92%;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.inactive-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+  border-radius: 10px;
+}
+
+.link-btn,
+.link-project-btn {
+  background: rgb(13, 17, 23);
+  box-shadow: rgb(48, 54, 61) 0px 0px 0px 2px inset;
+  padding: 10px;
+  border-radius: 100px;
+  transition: all 0.3s ease-out;
+}
+
+.link-btn:hover,
+.link-project-btn:hover {
+  box-shadow: rgb(48, 54, 61) 0px 0px 0px 4px inset;
+}
+
+.mapboxgl-ctrl {
+  display: none !important;
+}
+
+.mapboxgl-map {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  border-radius: 1.5rem;
+}
+
+.marker {
+  transition: transform 0.5s ease-in-out !important;
+}
+
+.marker img {
+  transition: transform 0.7s ease-in-out !important;
+}
+
+.marker:hover {
+  transform: translate(125px, 135px) translate(-50%, -50%) translate(0px, 0px)
+    scale(1.1) !important;
+}
+
+.marker:hover img {
+  animation: bounce 2s infinite !important;
+}
+
+@keyframes bounce {
+  0% {
+    transform: rotate(0) scale(1);
+  }
+
+  25% {
+    transform: rotate(-5deg) scale(1.1);
+  }
+  50% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  75% {
+    transform: rotate(5deg) scale(1.1);
+  }
+
+  100% {
+    transform: rotate(-0deg) scale(1);
+  }
+}
+
+@media screen and (min-width: 1536px) {
+  .marker:hover {
+    transform: translate(160px, 135px) translate(-50%, -50%) translate(0px, 0px)
+      scale(1.1) !important;
+  }
+}
