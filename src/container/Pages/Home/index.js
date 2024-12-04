@@ -33,14 +33,14 @@ export const Widget1Component = () => {
         setIsHovered(true);
         setTimeout(() => {
             setImage(face);
-        }, 100 );  // Slight delay for smooth effect
+        }, 100);  // Slight delay for smooth effect
     };
 
     const handleMouseLeave = () => {
         setIsHovered(false);
         setTimeout(() => {
             setImage(hoverFace);
-        }, 100 );  // Slight delay for smooth effect
+        }, 100);  // Slight delay for smooth effect
     };
 
     return <div className="flex flex-col items-start justify-start p-6 py-8 transition" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
@@ -102,7 +102,7 @@ export const Widget2Component = () => {
 
     }, []);
 
-    return <div className="!w-[250px] !h-[270px] 2xl:!w-[320px]">
+    return  <div className="!w-[500px] !h-[270px] lg:!w-[250px] lg:!h-[270px] 3xl:!w-[350px]">
         <div className="map-container overflow-hidden"
             ref={mapContainerRef}
         />
@@ -325,7 +325,6 @@ export const Widget14Component = () => {
 }
 
 const Home = () => {
-    const [layouts, setLayouts] = useState(null);
     const [active, setActive] = useState(0);
     const [widgetArray, setWidgetArray] = useState([
         { i: "widget1", x: 0, y: 0, w: 4, h: 1, component: Widget1Component },
@@ -344,24 +343,45 @@ const Home = () => {
         { i: "widget14", x: 8, y: 4, w: 2, h: 2, component: Widget14Component },
     ]);
 
-    const handleModify = (layouts, layout) => {
-        const tempArray = widgetArray;
-        setLayouts(layout);
-        layouts?.map((position) => {
-            tempArray[Number(position.i)].x = position.x;
-            tempArray[Number(position.i)].y = position.y;
-            tempArray[Number(position.i)].width = position.w;
-            tempArray[Number(position.i)].height = position.h;
+   // Layouts for different screen sizes
+   const initialLayouts = {
+    lg: widgetArray.map(widget => ({ ...widget })),
+    md: widgetArray.map(widget => ({ ...widget, x: Math.min(widget.x, 6), w: Math.min(widget.w, 4) })),
+    sm: widgetArray.map(widget => ({ ...widget, x: widget.x > 4 ? 0 : widget.x, y: widget.y > 4 ? 0 : widget.y, w: Math.min(widget.w, 4) })),
+    xs: widgetArray.map(widget => ({ ...widget, x: 0, w: 4 })),
+    xxs: widgetArray.map(widget => ({ ...widget, x: 0, w: 2 })),
+};
+
+const [layouts, setLayouts] = useState(initialLayouts);
+
+    const handleModify = (currentLayout, allLayouts) => {
+        // Update the layouts for all breakpoints (lg, md, sm, xs, xxs)
+        setLayouts((prevLayouts) => ({
+            ...prevLayouts,
+            ...allLayouts,  // This will update layouts for all breakpoints
+        }));
+
+        // Update widget positions based on the current layout (assumed to be the current breakpoint)
+        const updatedWidgets = widgetArray.map((widget) => {
+            const updatedPosition = currentLayout.find((pos) => pos.i === widget.i);
+            return updatedPosition
+                ? { ...widget, x: updatedPosition.x, y: updatedPosition.y, w: updatedPosition.w, h: updatedPosition.h }
+                : widget;
         });
-        setWidgetArray(tempArray);
+
+        setWidgetArray(updatedWidgets);
     };
+
+    console.log(layouts)
 
     return (
         <>
             <Navbar setWidgetArray={setWidgetArray} active={active} setActive={setActive} />
-            <div className="items-center justify-center flex min-h-screen pb-16">
+            <div className="items-center justify-center flex min-h-screen pb-16"
+
+            >
                 <ResponsiveReactGridLayout
-                    onLayoutChange={handleModify}
+                    onLayoutChange={(layout, allLayouts) => handleModify(layout, allLayouts)}
                     verticalCompact={true}
                     layout={layouts}
                     breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}

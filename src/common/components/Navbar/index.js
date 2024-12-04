@@ -20,7 +20,7 @@ const Navbar = ({ setWidgetArray, active, setActive }) => {
 
             // Adjust left by 5.489px only during the initial render
             if (isInitialRender) {
-                leftPosition -= 27; // Subtract 5.489px on initial render
+                leftPosition -= 27; // Subtract 27px on initial render
             }
 
             // Update the slider's position and width based on the active tab
@@ -144,7 +144,7 @@ const Navbar = ({ setWidgetArray, active, setActive }) => {
 
     return (
         <>
-            <div className="w-full flex items-center justify-between p-12 px-14 pt-12 sticky top-0 z-20 bg-[rgb(9,12,16)]">
+            <div className="w-full flex flex-col lg:flex-row gap-5 lg:gap-0 items-center justify-between p-12 px-14 pt-12 sticky top-0 z-20 bg-[rgb(9,12,16)]">
                 <Typography className="text-white font-lora text-3xl font-black logo-text cursor-pointer" onClick={() => handleTabClick(0)}>ankita</Typography>
                 <div
                     className="flex w-fit items-center justify-center p-[5px] border-2 border-[rgb(48,54,61)] rounded-full cursor-pointer"

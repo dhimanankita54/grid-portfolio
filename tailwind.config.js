@@ -29,6 +29,8 @@ module.exports = withMT({
 
       '2xl': '1536px',
       // => @media (min-width: 1536px) { ... }
+      '3xl': '1800px',
+      // => @media (min-width: 1800px) { ... }
     },
     colors: {
       'blue': '#1fb6ff',
